@@ -1,0 +1,1 @@
+python hw1_training.py ./data -e 100 -l 1e-6 -i my -g 0 -m -1 -n -1

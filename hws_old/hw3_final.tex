@@ -1,0 +1,1315 @@
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Table Of Contents
+%
+% - Table Of Contents
+% - Document Definition
+% - Package
+% - Beginning Of Document
+% - Theoretical Questions
+% - Q1.1
+% - Q1.2
+% - Q1.3
+% - Q1.4
+% - Programming
+% - Q2
+% - Q3
+% - Submission Instruction
+% - End Of Document
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Document Definition
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Homework template.
+% NOTE:
+% Be sure to define your team members with the \team command.
+% Be sure to define the problem set with the \ps command.
+% Be sure to use the \answer command for each of your answers.
+%
+\documentclass{article}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Package
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Package.
+%
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{cleveref}
+\usetikzlibrary{arrows,positioning,shapes.multipart}
+
+% New commands.
+%
+\newcommand{\class}{ CS69000-DPL Spring 2022 }
+\newcommand{\website}{
+    {\tiny\url{https://www.cs.purdue.edu/homes/ribeirob/courses/Spring2022}}
+}
+\newcommand{\homeworknumber}{3\xspace}
+\newcommand{\duedate}{ {\bf 11:59pm}, Saturday, April 15th }
+\newcommand{\code}{CODE}
+
+% New commands.
+%
+\setlength{\parskip}{1pc}
+\setlength{\parindent}{0pt}
+\setlength{\topmargin}{-1pc}
+\setlength{\textheight}{8.5in}
+\setlength{\oddsidemargin}{0pc}
+\setlength{\evensidemargin}{0pc}
+\setlength{\textwidth}{6.5in}
+
+% New commands.
+%
+\newcommand{\var}{\mbox{var}}
+\newcommand{\cov}{\mbox{cov}}
+
+% New commands.
+%
+\newcommand{\mR}{\bm{R}}
+\newcommand{\mA}{\bm{A}}
+\newcommand{\mH}{\bm{H}}
+\newcommand{\mW}{\bm{W}}
+\newcommand{\mX}{\bm{X}}
+\newcommand{\mY}{\bm{Y}}
+
+% New commands.
+%
+\newcommand{\mPhi}{\bm{\Phi}}
+\newcommand{\vb}{\bm{b}}
+\newcommand{\vc}{\bm{c}}
+\newcommand{\vh}{\bm{h}}
+\newcommand{\vm}{\bm{m}}
+\newcommand{\vx}{\bm{x}}
+
+% New commands.
+%
+\newcommand*\dbar[1]{\overline{\overline{\lower0.2ex\hbox{$#1$}}}}
+\newcommand{\harrow}[1]{
+    \mathstrut\mkern2.5mu#1\mkern-11mu\raise1.6ex\hbox{
+        $\scriptscriptstyle\rightharpoonup$
+    }
+}
+
+% New commands.
+%
+\newcommand{\newpart}{
+    \stepcounter{partno}
+    \noindent
+    {\bf (\alph{partno})}
+}
+
+% New commands.
+%
+\newcommand{\header}{
+    \newpage
+    \noindent
+    \framebox{
+        \vbox{
+            \class Homework \hfill --- Homework \homeworknumber --- \hfill Last
+            update: \today
+            \\
+            \website \hfill {\color{red} Due: \duedate}
+        }
+    }
+    \bigskip
+    \newline
+    %
+    {\bf Instructions and Policy:}
+    %
+    Each student should write up their own solutions independently, no copying
+    of any form is allowed.
+    %
+    You MUST to indicate the names of the people you discussed a problem with;
+    ideally you should discuss with no more than two other people.
+    \\
+    {\color{red} YOU MUST INCLUDE YOUR NAME IN THE HOMEWORK.}
+    \\
+    You need to submit your answer in PDF.
+    %
+    {\LaTeX} is typesetting is encouraged but not required.
+    %
+    Please write clearly and concisely - clarity and brevity will be rewarded.
+    %
+    Refer to known facts as necessary.
+    \newline
+}
+
+% New commands.
+%
+\newcounter{questionno}
+\setcounter{questionno}{-1}
+\newcounter{partno}
+
+% New commands.
+%
+\newcommand{\question}[1]{
+    \noindent
+    \newline
+    \stepcounter{questionno}
+    \setcounter{partno}{0}
+    {\bf Q\arabic{questionno} (#1 pts):}
+}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Beginning Of Document
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Beginning of document.
+%
+\begin{document}
+
+% Common homework head context.
+%
+\header
+\question{%
+    {\color{red}0pts correct answer, -1,000pts incorrect answer: (0,-1,000)}%
+}
+%
+A correct answer to the following questions is worth 0pts.
+%
+An incorrect answer is worth -1,000pts, which carries over to other homeworks
+and exams, and can result in an F grade in the course.
+%
+\begin{enumerate}[(1)]
+%
+\item
+    Student interaction with other students / individuals:
+    %
+    \begin{enumerate}[(a)]
+    %
+    \item
+        I have copied part of my homework from another student or another
+        person (plagiarism).
+    %
+    \item
+        Yes, I discussed the homework with another person but came up with my
+        own answers.
+        %
+        Their name(s) is (are)
+        \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_%
+        \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+    %
+    \item
+        No, I did not discuss the homework with anyone.
+    %
+    \end{enumerate}
+%
+\item
+    On using online resources:
+    %
+    \begin{enumerate}[(a)]
+    %
+    \item
+        I have copied one of my answers directly from a website (plagiarism).
+    %
+    \item
+        I have used online resources to help me answer this question, but I
+        came up with my own answers (you are allowed to use online resources as
+        long as the answer is your own).
+        %
+        Here is a list of the websites I have used in this homework:
+        \\
+        \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_%
+        \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_%
+        \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+    %
+    \item
+        I have not used any online resources except the ones provided in the
+        course website.
+    %
+    \end{enumerate}
+%
+\end{enumerate}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Theoretical Question
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Start from new page.
+%
+\newpage
+
+% Space.
+%
+\hfill
+
+% Homework as a section.
+%
+\setcounter{section}{\homeworknumber}
+\section*{%
+    Homework \homeworknumber: Inductive Biases for Graph and Sequence Data
+}
+
+% Learning object.
+%
+\noindent \textbf{Learning Objectives:}
+%
+Let students understand basic concepts that are used to add inductive biases in
+deep learning models: for images, sequences, and graphs.
+
+% Space.
+%
+\hfill
+
+% Learning Outcomes.
+%
+\noindent \textbf{Learning Outcomes:}
+%
+After finishing this homework, students will be able to create new inductive
+biases to solve new tasks.
+
+% Concept questions.
+%
+\question{Concepts (4.0 pts)}
+%
+Please answer the following questions \textbf{concisely}.
+%
+All the answers, along with your name and email, should be clearly typed in
+some editing software, such as Latex or MS Word.
+
+% Beginning of concept question enumeration.
+%
+\begin{enumerate}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q1.1
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Question.
+%
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q1.2
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Question.
+%
+\item {\bf (1.0 pt)} Consider $n$-element input sequences $x_{1}, \cdots,
+x_{n}$.
+%
+Consider the permutation group over these sequence.
+%
+Show (mathematically) that the left 1-eigenspace associated with the Reynolds operator of the
+permutation group is equivalent to mean-pooling times a constant.
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+% Space.
+%
+\vfill
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q1.3
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Question.
+%
+\item {\bf (1.0 pt)} Consider the following model families:
+%
+\begin{itemize}
+%
+\item
+    $H_{0}$: 1-hidden layer MLP (with softmax outputs)
+%
+\item
+    $H_{1}$: 2-hidden layer MLP (with softmax outputs)
+%
+\item
+    $H_{2}$: Logistic Regression (with softmax outputs)
+%
+\end{itemize}
+%
+Describe the relationship between these hypothesis classes.
+%
+Draw a Venn diagram of $H_{0}$, $H_{1}$, and $H_{2}$ in the model space (where
+each point in the space represents a different input-output function (different
+model)).
+\\
+{\bf Hint:}
+%
+If $f'(x) = g(f(x))$, where $g(x) = x$, then $f'$ and $f$ are the same model
+(same measurable map) since their input-output relations are the same.
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+% Space.
+%
+\vfill
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q1.4
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Question.
+%
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+\newpage
+% Question.
+%
+\item {\bf (1.0 pt)} Consider two different multi-task learning scenarios (a)  left in the figure below
+and (b)  right in the figure below.
+%
+There are two tasks $T_{1}$ and $T_{2}$.
+%
+In scenario (a) two tasks we want to learn both come from the hypothesis space
+$\mathcal{F}$.
+%
+In scenario (b) task $T_{1}$ come from $\mathcal{F}_{1}$ and $T_{2}$ come from
+$\mathcal{F}_{2}$.
+%
+
+\begin{enumerate}
+\item In each scenario ((a) and (b)), describe which hypothesis space is the best
+hypothesis space to learn these two tasks and why.
+\item Using Scenario (b) in the figure above, explain why {\bf transfer learning}
+between tasks $T_{1}$ and $T_{2}$ can fail.
+\\
+{\bf Hint:}
+%
+Consider first training on task $T_{1}$ and then transfering to task $T_{2}$.
+%
+Draw the Venn diagram of the hypothesis space of the transfer model for task
+$T_{2}$.
+%
+Explain why the transfer is probably not useful if we compare against just
+using $H_{1}$ or $H_{3}$ as the hypothesis space for task $T_{2}$.
+
+\end{enumerate}
+
+
+% Image.
+%
+\begin{center}
+\includegraphics[scale=0.5]{figs/metalearning.png}
+\end{center}
+
+% Question.
+%
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+% Space.
+%
+\vfill
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q1.6
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Question.
+%
+\item {\bf (1.0 pt)} We saw in class that gradient matching is a type of
+meta-learning procedure, where we have a model $f^{1} = g^{1}\big(
+\Gamma^{1}(x) \big)$ which we use to learn one task and a model $f^{2} =
+g^{2}\big( \Gamma^{2}(x) \big)$ which we use for the second task.
+%
+With gradient matching, we seek to match the gradients $
+    \frac{\partial}{\partial x} \Gamma^{1}(x) = \frac{\partial}{\partial x}
+    \Gamma^{2}(x)
+$.
+%
+Explain why matching gradients can be better than making $\Gamma^{1} =
+\Gamma^{2}$.
+%
+Draw a Venn diagram of the model space specified by $\Gamma^{1}$ and
+$\Gamma^{2}$ in each case.
+You may also use the support of the different tasks to support your argument.
+
+% Answer.
+%
+% {\color{blue} Answer:}
+
+% Space.
+%
+\vfill
+
+% End of concept question enumeration.
+%
+\end{enumerate}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Programming
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% Start from new page.
+%
+\newpage
+
+% Beginning of programming.
+%
+\subsection*{Programming (5.0 pts + (extra) 4.0 pts)}
+%
+In this part, you are going to implement (1) HMC Sampler for GMM parameters,
+(2) Graph Convolutional Network, (3) Markov Chain language model and (4) LSTM
+language model.
+%
+The rule of thumbs is that you can do any changes in the \texttt{homework/stru%
+ctures} and \texttt{homework/models} files (not changing their names), but need
+to \textbf{keep the main executable, such as \texttt{main-hmc.py}, \texttt{mai%
+n-ddi.py}, untouched}.
+%
+That is, you can change any function you want in the code provided inside the
+folder \texttt{homework/structures}, \texttt{homework/models} and add extra
+files.
+%
+But all other files in the root folder should remain intact on submission and
+the code should execute in the scholar cluster via \texttt{interface.sh}.
+
+% Space.
+%
+\hfill
+
+% Download skeleton.
+%
+\noindent \textbf{Skeleton Package:}
+%
+A skeleton package is available at \\
+\url{https://www.dropbox.com/s/lsq9peih1aim61j/hw3.zip?dl=0}\\
+ with the execution scripts.
+%
+You should be able to download it and use the folder structure provided.
+%
+\textbf{A GPU is essential for some of the tasks, thus make sure you follow the
+instruction to set up the GPU environment on scholar.rcac.purdue.edu.}
+%
+A tutorial is available at \url{https://www.cs.purdue.edu/homes/ribeirob/cours%
+es/Spring2022/lectures/cluster-how-to/cluster-how-to.html}.
+
+% Homework framework overview.
+%
+\subsubsection*{HW Overview}
+%
+This HW is a combination of two distinct tasks.
+%
+You are going to fill in a few new components into the HW\homeworknumber package.
+\\
+%
+\noindent The zip file should have the following folder structure:
+
+% Skeleton figure.
+%
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{core}=[draw=blue,fill=blue!30]
+\tikzstyle{optional}=[dashed,draw=red,fill=gray!50]
+%
+\begin{tikzpicture}[%
+    grow via three points={
+        one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)
+    },
+    edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}
+]
+%
+    \node {hw\homeworknumber}
+    child {
+        node {structures}
+        child {node {gmm.py}}
+        child {node {ddi.py}}
+        child {node {meta.py}}
+        child {node [optional] {any\_others.py}}
+    }
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child {
+        node [selected] {models}
+        child {node {model.py}}
+        child {node {gmm.py}}
+        child {node [selected] {hmc.py}}
+        child {node [selected] {gcn.py}}
+        child {node [optional] {any\_others.py}}
+    }
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child [missing] {}
+    child {node [selected] {ReadMe}}
+    child {node {utils.py}}
+    child {node [core] {main\_hmc.py}}
+    child {node [core] {main\_ddi.py}}
+    child {node {download.py}}
+    child {node {scholar.sh}}
+    child {node {interface.sh}};
+\end{tikzpicture}
+
+% Space.
+%
+\hfill
+
+% Skeleton description.
+%
+\begin{itemize}
+%
+\item
+    \textbf{hw\homeworknumber:}
+    %
+    the top-level folder that contains all the files required in this homework.
+%
+\item
+    \textbf{ReadMe:}
+    %
+    Your ReadMe should begin with a couple of \textbf{execution commands},
+    e.g., ``python hw\homeworknumber.py data'', used to generate the outputs
+    you report.
+    %
+    TA would replicate your results with the commands provided here.
+    %
+    More detailed options, usages and designs of your program can be followed.
+    %
+    You can also list any concerns that you think TA should know while running
+    your program.
+    %
+    Note that put the information that you think it's more important at the
+    top.
+    %
+    Moreover, the file should be written in pure text format that can be
+    displayed with Linux ``less'' command.
+    %
+    You can refer to \texttt{interface.sh} for an example.
+%
+\item
+    \textbf{utils.py:}
+    %
+    Utility functionalities used in main execution files.
+    \textbf{meta.py:}
+    %
+    Contains the base class of datasets.
+\item
+    \textbf{main\_hmc.py:}
+    %
+    The \underline{main executable} to run HMC sampling for GMM parameters.
+    %
+\item
+    \textbf{main\_ddi.py:}
+    %
+    The \underline{main executable} to run GCN on DDI dataset.
+    %
+\item
+    \textbf{scholar.sh:}
+    %
+    A guidance of configure GPU environment on scholar clusters.
+    You need to follow \emph{cluster-how-to} guidance on the course home page.
+%
+\item
+    \textbf{interface.sh:}
+    %
+    The executable bash script to give you examples of \texttt{main-*.py}
+    usage.
+    %
+    It also works as an example for writing ReadMe.
+%
+\item
+    \textbf{download.py:}
+    %
+    The executable python script to download all essential datasets.
+    %
+    You only need to run it once, and it will automatically download essential
+    datasets under \texttt{data} folder.
+%
+\item
+    \textbf{structures:}
+    %
+    The module defines different dataset structures for this homework.
+    %
+    It provides following dataset structures in different files:
+    %
+    \begin{itemize}
+    %
+    \item
+        \textbf{gmm.py:} A 2D point dataset sampled from a GMM.
+    %
+    \item
+        \textbf{ddi.py:} DDI dataset abstraction.
+    %
+    \end{itemize}
+%
+\item
+    \textbf{models:}
+    %
+    The module defines all neural network models for this homework.
+    %
+    It provides following models in different files:
+    %
+    \begin{itemize}
+    %
+    \item
+        \textbf{gmm.py:} GMM model.
+    %
+    \item
+        \textbf{hmc.py:} Neural network parameter sampler by HMC.
+    %
+    \item
+        \textbf{gcn.py:} GCN model.
+    %
+    \end{itemize}
+    %
+    You will need to fill in missing parts in those files except for
+    \texttt{gmm.py} (which is fully implemented).
+    %
+    Details will be provided in the description of each task.
+    %
+    Again, you are welcome to design the code inside \texttt{models} in your
+    own way, as long as the code works with \texttt{main-*.py} and \texttt{int%
+    erface.sh} and does what it is supposed to do.
+    %
+    For instance, you can add another file, called \texttt{utils.py}, to
+    facilitate your implementation.
+%
+\end{itemize}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q2
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+\newpage
+% Beginning of HMC question.
+%
+\question{%
+    HMC for GMM parameters (6.0 pts)
+}
+
+% Space.
+%
+\hfill
+
+% Introduction.
+%
+\noindent
+%
+Consider a Gaussian Mixture Model (GMM) $X \in \mathbb{R}^2$ with $M$ clusters and parameters $\mW = \{\mu_{i}, \sigma_{i}, w_{i}\}_{i = 1}^{M}$, where $\mu_{i} \in \mathbb{R}^2$.
+That is, the GMM descibes a set of points in the 2D plane.
+You are going implement a posterior sampler using the Hamiltion Monte Carlo (HMC) algorithm presented in class.
+
+HMC recap: In general, given a model (say, our GMM) with parameters  $\mW$ and a training dataset $D$.
+A Bayesian sampler of this model obtains $m$ samples $\mW_{t} \sim P(\mW|D)$, where $t \in \{0,\ldots,m-1\}$ is the sample index.
+To achieve this via HMC, we need two measurements, the {\em potential} energy $U(\mW)$
+and the {\em kinetic} energy $K(\mPhi)$, where $\mPhi \sim \mathcal{N}(0, \mR)$ is the
+auxiliary momentum in HMC algorithm randomly sampled from zero-mean Gaussian
+distribution with covariance matrix $\mR$.
+The choice of $\mR$ is left to you.
+
+Given an arbitrary dataset $\mathcal{D}$, we have $$U(\mW) = -\log
+P(\mathcal{D}|\mW) + Z_{U},$$ and $$K(\mPhi) = 0.5 \cdot \mPhi^\mathsf{T}
+\mR^{-1} \mPhi + Z_{K},$$ where $-\log P(\mathcal{D}|\mW)$ is negative
+log-likelihood (mean) of model parameter on dataset $\mathcal{D}$ and $Z_{U},
+Z_{K}$ are arbitrary constants.
+Thus, we can regard the total energy as $$H(\mW, \mPhi) = -\log
+P(\mathcal{D}|\mW) + 0.5 \cdot \mPhi^\mathsf{T} \mR^{-1} \mPhi.$$
+
+The HMC algorithm can be described as \Cref{alg:hmc}:
+\begin{algorithm}
+\caption{Single Step Sampling of Hamilton Mento Carlo}
+\label{alg:hmc}
+\begin{algorithmic}
+\Require Previous sample $\mW_{t}$, Size of Leapfrog Step $\delta$, Number of
+Leapfrog Steps $L$, Covariance $\mR$
+\Ensure New sample $\mW_{t + 1}$
+\State $\mPhi_{0} \sim \mathcal{N}(0, \mR)$
+\State $\mX_{0} = \mW_{t}$
+\For{$l = 0, \cdots, L - 1$}
+    \State $\mPhi_{\big( l + \frac{1}{2} \big) \delta} = \mPhi_{l \delta} -
+    \frac{\delta}{2} \left. \frac{\partial U(\mW)}{\partial \mW}
+    \right|_{\mW = \mX_{l \delta}}$
+    \State $\mX_{(l + 1) \delta} = \mX_{l \delta} + \delta \mR^{-1}
+    \mPhi_{\big( l + \frac{1}{2} \big) \delta}$
+    \State $\mPhi_{(l + 1) \delta} = \mPhi_{\big( l +
+    \frac{1}{2} \big) \delta} - \frac{\delta}{2} \left. \frac{\partial U(\mW)}
+    {\partial \mW} \right|_{\mW = \mX_{(l + 1) \delta}}$
+\EndFor
+\State $\alpha = \min\big(1, \exp(-H(\mX_{L \sigma}, \mPhi_{L \sigma}) +
+H(\mX_{0}, \mPhi_{0}))\big)$
+\If{$\text{Uniform}(0, 1) \leq \alpha$}
+    \State $\mW_{t + 1} = \mX_{L \sigma}$
+\Else
+    \State $\mW_{t + 1} = \mW_{t}$
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+% Space.
+%
+\hfill
+
+% Related modules.
+%
+\noindent Related Modules:
+%
+\begin{itemize}
+%
+\item
+    models/hmc.py
+\item
+    main\_hmc.py
+\item
+    models/gmm.py
+%
+\end{itemize}
+
+% Space.
+%
+\hfill
+
+% Files to work on.
+%
+%\newpage
+\noindent Action Items:
+%
+\begin{enumerate}
+%
+\item
+    (1.5 pts)
+    For an arbitrary input $\vx$ generated by the
+    GMM, we may want to know which cluster $\vx$ belongs to.
+    Let $\mW_{t} \sim P(\mW|\mathcal{D})$ be a posterior sample of our GMM model. Prove that the expected value of the probability that a point $\vx \in \mathbb{R}^2$
+belongs to the $i$-th cluster, $i \in \{1,\ldots,M\}$, is uniform. That is, prove that $$E_{\mW_t}[P(\text{$\vx$ belongs to $i$-th cluster} | \mW_t)] =  P(\text{$\vx$ belongs to $i$-th cluster} | \mathcal{D}) = 1 / M.$$
+    \\
+    \textbf{Hint:}
+    %
+    Note that the GMM distribution has a permutation symmetry (invariance).
+%
+\item
+    (1.5 pts)
+    Although the probability of a sample $\vx$ belonging to the $i$-th cluster is trival (uniform), the probability of two samples $\vx'_{1}, \vx'_{2}$    belong to the same cluster is non-trival.
+    Suppose we have a series of observations $\mathcal{D} = [\vx_{1}, \cdots,
+    \vx_{N}]$ generated by some GMM model $\mW'$.
+    \\
+    Prove that $P(\text{$\vx'_{1}, \vx'_{2}$ belong to the same cluster} |
+    \mathcal{D}) $ is no longer uniform.
+%
+\item
+    (3.0 pts)
+    To directly achieve $P(\text{$\vx'_{1}, \vx'_{2}$ belong to the same
+    cluster}| \mathcal{D})$, we need to enumerate all possible GMM parameters $W$, which is
+    infeasible.
+    Thus, we will estimate this by sampling.
+    \begin{align}\label{eq:joint}
+    & P(\text{$\vx'_{1}, \vx'_{2}$ belong to the same cluster}|\mathcal{D}) \approx \frac{1}
+    {K} \sum\limits_{k = 1}^{K} P(\text{$\vx'_{1}, \vx'_{2}$ belong to the same
+    cluster} | \mW_{t}),
+    \end{align}
+    where $ \mW_{t} \sim P(\mW | \mathcal{D})$.
+    We will implement $\mW_{t} \sim P(\mW | \mathcal{D})$ by HMC in
+    \texttt{main\_hmc.py}.
+    \\
+    Go through all related modules. Specifically, you should understand
+    \texttt{models/hmc.py}, and fill in missing parts of \texttt{models/hmc.py}
+    according to \Cref{alg:hmc}.
+    Run the \texttt{main\_hmc.py} with default arguments: \texttt{python main%
+    \_hmc.py}.
+    \textbf{In the report, you should fill in missing values of \Cref{tab:hmc},
+    and explain your findings from the table.}
+    You should collect this table from the logging outputs of \texttt{main\_hm%
+    c.py}.
+%
+\end{enumerate}
+
+% Table example.
+%
+\begin{table}[ht]
+\caption{
+    \textbf{Table for HMC Sampling:}
+    Pairs of odd IDs come from same GMM clusters, while pairs of even IDs
+    come from different GMM clusters. There is a warm-up phase where we perform some steps of maximum likelihood. 
+}
+\label{tab:hmc}
+\begin{center}
+\centering
+\begin{tabular}{r r|r|r}
+&  \multicolumn{3}{c}{Estimates of \Cref{eq:joint}}\\
+    \cline{2-4}
+  & ~~~~Initial~~~~ & Warm-up phase & HMC Average \\
+    \hline
+    1st pairs of points & & & \\
+    2nd pairs of points & & & \\
+    3rd pairs of points & & & \\
+    4th pairs of points & & & \\
+    5th pairs of points & & & \\
+    6th pairs of points & & & \\
+    7th pairs of points & & & \\
+    8th pairs of points & & & \\
+    \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q3
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+\clearpage
+
+% Beginning of GCN question.
+%
+\question{%
+    GNN for Link Prediction (extra 4.0 pts)
+}
+
+% Space.
+%
+% Introduction.
+%
+\noindent
+%
+We are going implement Graph Convolutional Network (GCN) as described next.
+
+% Space.
+%
+
+% Introduction.
+%
+In the following GNN related coding assignment, you will work with the
+Drug-Drug Interaction (DDI) dataset.
+%
+The DDI dataset consists of 4,267 drugs, and 1,334,889 interaction links.
+%
+The raw DDI dataset is undirected and unattributed.
+%
+We augment the edge weights by the inverse root of degree product of its two
+nodes ($\mA_{i, j} = 1 / \sqrt{d_{i} d_{j}}$ for edge $(i, j)$, where $d_{i},
+d_{j}$ are node degrees).
+
+% Introduction.
+%
+You can regard it as a graph $G = (V, E, \mX, \mA)$ where $V = \{1, 2, \cdots,
+4267\}$ is the set of $n = 4267$ nodes, $E$ is the set of 1,334,889 undirected
+edges, $\mX$ and $\mA$ are the feature and weight matrices assigned to the
+graph.
+%
+Although the raw dataset has no node attributes, we will regard it as an
+attributed graph for convenience.
+%
+For each node $v \in V$, we have a feature vector $\vx_{v}$.
+For each edge $(u, v) \in V$, we have a weight $\mA_{u, v}$.
+For pair $(u, v)$ which is not an edge, $\mA_{u, v} = 0$.
+%
+Thus, you will have
+%
+\begin{align}
+%
+    \mX = \begin{bmatrix}
+        \vx_{1} \\
+        \vx_{2} \\
+        \vdots \\
+        \vx_{n}
+    \end{bmatrix} \quad \mA = \begin{bmatrix}
+        \mA_{1, 1} & \cdots & \mA_{1, n} \\
+        \mA_{2, 1} & \cdots & \mA_{2, n} \\
+        \vdots & \ddots & \vdots \\
+        \mA_{n, 1} & \cdots & \mA_{n, n}
+    \end{bmatrix},
+%
+\end{align}
+%
+where each $\vx_{u}$ is a 256 dimensional vector and $\mA$ is a $4267 \times
+4267$ matrix.
+
+% Space.
+%
+\hfill
+
+% Introduction.
+%
+In GCN of this project, features of nodes and their neighbors will be
+aggregated together from layer $k$ to next layer $k + 1$:
+%
+\begin{align}
+\label{eqn:gcn}
+%
+    \mH^{(k + 1)} = \text{ReLU}\big( \mA \mH^{(k)} \mW^{(k)} + \vb^{(k)}\big)
+%
+\end{align}
+%
+where $\mH^{(k)}$ is the embedding features at GCN layer $k$, $\mW^{(k)}$ and
+$\vb^{(k)}$ are weight matrix and bias vector of layer $k$.
+$\mH^{(0)} = \mX$ is a corner case.
+%
+The final embedding matrix will then be used to predict if a link exists
+between arbitrary node $u, v$ for graph $G$.
+%
+\begin{align*}
+%
+    P(\text{$(u, v)$ exists}) = \text{Sigmoid}(\text{MLP}(\mH^{(2)}_{u} \odot
+    \mH^{(2)}_{v})).
+%
+\end{align*}
+
+% Space.
+%
+\hfill
+
+% Related modules.
+%
+\noindent Related Modules:
+%
+\begin{itemize}
+%
+\item
+    models/gcn.py
+\item
+    main\_ddi.py
+%
+\end{itemize}
+
+% Space.
+%
+\hfill
+
+% Files to work on.
+%
+\noindent Action Items:
+%
+\begin{enumerate}
+%
+\item
+    (1 pts)
+    The formula above is designed via matrix multiplications (which is efficient if $\mA$
+    is a dense matrix).
+    %
+    In this project, we will do something more efficient for sparse matrices $\mA$.
+    %
+    To be specific, for an arbitary node $v$, you only have access to its
+    neighbor set $\mathcal{N}(v) = \{u | (u, v) \in E \}$.
+    %
+    \textbf{%
+        Rewrite the above formula from \Cref{eqn:gcn} as a new function
+        $\overline{f}$ that $\mH^{(k + 1)}_{v} = \text{ReLU}\big( \overline{f}
+        \big( v, \mH^{(k)}, \mathcal{N}(v), \mW^{(k)}, \vb^{(k)}\big) \big)$
+    }
+%
+\item
+(1 pts)
+Go through all the related modules.
+%
+Specifically, you should understand \texttt{models.GCN.degree\_}\\\texttt{normalizor}
+which will work as an example to understand sparse adjacency matrix.
+\\
+In this method, you will have number of nodes $|V|$ and sparse adjacency
+matrix as inputs.
+You can regard sparse adjacency as a list of all edges $[e_{1}, e_{2},
+\cdots]$ where $e_{n} = (u_n, v_n) \in E$.
+This method defines edge weights in the graph neural network given the above inputs.
+\\
+Make essential modifications to this method to achieve the minimum, maximum
+and average of node in-degrees.
+Here, in-degree of arbitary node $v \in V$ is $d_{v} = |\{i | (i, v) \in E,
+\forall i \in V\}|$.
+The minimum of node in-degrees is $\min(\{d_{v} | v \in V\})$; The maximum
+of node in-degrees is $\max(\{d_{v} | v \in V\})$; and the average of node
+in-degrees is $\sum_{v \in V} d_{v} / |V|$.
+Report those statistics in \Cref{tab:indeg}.
+You do not need to submit your code for this item, and only the table
+is required in your PDF submission.
+%
+\item
+    (1 pt)
+    Now, we will use GCNs to learn node representations for link prediction
+    tasks.
+    %
+    First, you need to fill in the missing parts in \texttt{models.GCN}
+    according to the formula in the first question.
+    Pay attention to use sparse matrix operations as the second question.
+    %
+    Run the \texttt{main.py} with default arguments: \verb|python main.py|.
+    %
+    Save the logging outputs from your console, and report \texttt{Test Hits@2%
+    0} you achieved at the last line.
+%
+\item
+    (1 pt)
+    In the previous question, all the node feature $\vx_{u}$ are the same
+    vector (all-one vector) since the graph is unattributed.
+    We call node representations achieved from this assumption \emph{structural
+    node representations} since two nodes of the same topology in the graph
+    will get the same representations even if they are two different nodes in
+    the graph.
+    In the contrast, \emph{postional node representations} will assign
+    different nodes with different representations.
+    In the homework, we simply make node feature $\vx_{u}$ be learnable for all
+    nodes to get postional node representations for link prediction.
+    Run the \texttt{main.py} with arguments:
+    \verb|python main.py --positional|.
+    %
+    \begin{enumerate}
+        %
+        \item
+        Save the logging outputs from your console, and report \texttt{Test Hi%
+        ts@20} you achieved at the last line.
+        %
+        \item
+        Collect the validation performance (Hits@20) from log files for both
+        structural (ddi\_structure.ptlog) and positional (ddi\_position.ptlog)
+        representations under \texttt{ptlog} directory.
+        %
+        Draw learning curves (training and validation) Hits@20 performance for the structural and positional representations (the x-axis should show performance at 20\%, 50\%, 80\%, 100\% of the training data), and report it in the PDF submission.
+        You do not need to submit your rendering code.
+    \end{enumerate}
+%
+\end{enumerate}
+
+% Table example.
+%
+\begin{table}
+\caption{\textbf{Node In-degree Statistics}.}
+\label{tab:indeg}
+\begin{center}
+\centering
+\begin{tabular}{l|rrr}
+    \hline
+    & Min & Max & Average
+    \\
+    \hline
+    Training & & &
+    \\
+    \hline
+    Validation & & &
+    \\
+    \hline
+    Test & & &
+    \\
+    \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q4
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Submission Instruction
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+\clearpage
+
+% Beginning of submission.
+%
+\subsection*{Submission Instructions}
+%
+Please read the instructions carefully.
+%
+Failed to follow any part might incur some score deductions.
+
+% Space.
+%
+\hfill
+
+% PDF.
+%
+\subsection*{\bf PDF upload}
+%
+The report PDF must be uploaded on Gradescope.
+
+% Space.
+%
+\hfill
+
+% Code.
+%
+\subsection*{\bf Code upload}
+%
+\noindent \textbf{Naming convention}:
+%
+[firstname]\_[lastname]\_hw\homeworknumber
+\\
+%
+All your submitting code files, a ReadMe, should be included in one folder.
+%
+The folder should be named with the above naming convention.
+%
+For example, if my first name is ``Bruno'' and my last name is ``Ribeiro'',
+then for Homework \homeworknumber, my file name should be
+``bruno\_ribeiro\_hw\homeworknumber''.
+
+% Space.
+%
+\hfill
+
+% Pack your submission.
+%
+\noindent \textbf{Tar your folder:}
+%
+[firstname]\_[lastname]\_hw\homeworknumber.tar.gz
+\\
+%
+Remove any unnecessary files in your folder, such as training datasets.
+%
+Make sure your folder structured as the tree shown in Overview section.
+%
+{\color{red} Compress your folder with the the command:
+%
+\textbf{
+    tar -czvf bruno\_ribeiro\_hw\homeworknumber.tar.gz hw\homeworknumber
+}.}
+
+% Space.
+%
+\hfill
+
+% Submit.
+%
+\noindent \textbf{Submit:}
+%
+{\bf TURNIN INSTRUCTIONS}
+\\
+%
+Please submit your compressed file on \textbf{data.cs.purdue.edu} by turnin
+command line, e.g. \textbf{
+    turnin -c cs690dpl -p hw\homeworknumber
+    bruno\_ribeiro\_hw\homeworknumber.tar.gz
+}.
+%
+Please make sure you didn't use any library/source explicitly forbidden to use.
+%
+If such library/source code is used, you will get 0 pt for the coding part of
+the assignment.
+%
+If your code doesn't run on scholar.rcac.purdue.edu, then even if it compiles
+in another computer, your code will still be considered not-running and the
+respective part of the assignment will receive 0 pt.
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## End Of Document
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+
+% End of document.
+%
+\end{document}

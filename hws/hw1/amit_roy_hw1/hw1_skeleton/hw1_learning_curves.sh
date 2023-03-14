@@ -1,0 +1,1 @@
+python hw1_learning_curves.py ./data -e 100 -l 1e-4 -i torch.autograd -g 0 -m -1 -n 10000

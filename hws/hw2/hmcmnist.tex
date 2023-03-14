@@ -1,0 +1,264 @@
+
+\section{Q3: Hamiltonian Monte Carlo for Multi Layer Perceptron in Image classification} In this part, you are going to implement HMC Sampler for learning Multi Layer Perceptron (MLP) weights.
+%
+
+% Space.
+%
+\hfill
+
+% Download skeleton.
+%
+\noindent \textbf{Skeleton Package:}
+%
+A skeleton package is available at \\
+\url{https://www.dropbox.com/scl/fo/gkpw3czp2t6ifn2h5xuz9/h?dl=0&rlkey=im43kcufi8v2xgext2a6cxzod}\\
+ with the execution scripts.
+%
+You should be able to download it and use the folder structure provided.
+%
+%
+\noindent The zip file should have the following folder structure:
+
+% Skeleton figure.
+%
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{core}=[draw=blue,fill=blue!30]
+\tikzstyle{optional}=[dashed,draw=red,fill=gray!50]
+%
+\begin{tikzpicture}[%
+    grow via three points={
+        one child at (0.5,-0.7) and two children at (0.5,-0.7) and (0.5,-1.4)
+    },
+    edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}
+]
+%
+    \node {hw\homeworknumber\_hmcmlp\_skeleton}
+    child {node {NeuralNetwork.py}}
+    child {node {mnist.py}}
+    child {node {utils.py}}
+    child {node [core] {main.py}}
+    child {node {minibatcher.py}}
+    child {node [selected] {HamiltonianMonteCarlo.py}}
+    child {node [selected] {PerturbedHamiltonianMonteCarlo.py}};
+    \end{tikzpicture}
+
+% Space.
+%
+\hfill
+
+% Skeleton description.
+%
+\begin{itemize}
+%
+\item
+    \textbf{hw\homeworknumber\_hmcmlp\_skeleton}
+    %
+    the top-level folder that contains all the files required in this homework.
+%
+\item
+    \textbf{ReadMe:}
+    %
+    Your ReadMe should begin with a couple of \textbf{execution commands},
+    e.g., ``python hw\homeworknumber.py data'', used to generate the outputs
+    you report.
+    %
+    TA would replicate your results with the commands provided here.
+    %
+    More detailed options, usages and designs of your program can be followed.
+    %
+    You can also list any concerns that you think TA should know while running
+    your program.
+    %
+    Note that put the information that you think it's more important at the
+    top.
+    %
+    Moreover, the file should be written in pure text format that can be
+    displayed with Linux ``less'' command.
+    %
+    
+%
+\item
+    \textbf{utils.py:}
+    %
+    Utility functionalities used in main execution files.
+
+\item
+    \textbf{main.py:}
+    %
+    The \underline{main executable} to run HMC sampling for MLP parameters. You are asked to not to change the code. Even if you change any part of the code, while doing the evaluation the TA will replace it with the original main.py file.
+    %
+
+
+\item
+    \textbf{minibatcher.py:}
+    %
+    Python Module to implement batchifying in MNIST dataset%
+    %
+\item
+    \textbf{mnist.py:} A mnist data structure to load the MNIST dataset.
+%
+\item
+    \textbf{NeuralNetwork.py:} Multi Layer Perceptron model implemented with PyTorch defined for this homework. You should not change the code.
+    %
+    %
+    \item \textbf{HamiltonianMonteCarlo.py} You will need to implement the necessary functions here for developing a Hamiltonian Monte Carlo Sampler Module
+    \item \textbf{PerturbedHamiltonianMonteCarlo.py} You will need to implement the necessary functions here for developing a Hamiltonian Monte Carlo Sampler Module where only the last upper layer will be sampled
+    
+    
+%
+\end{itemize}
+
+
+% =============================================================================
+% *****************************************************************************
+% -----------------------------------------------------------------------------
+% ## Q2
+% -----------------------------------------------------------------------------
+% *****************************************************************************
+% =============================================================================
+
+% Beginning of HMC question.
+%
+\newpage
+\section*{%
+    HMC for MLP parameters (4.0 pts)
+}
+
+% Space.
+%
+\hfill
+
+% Introduction.
+%
+\noindent
+%
+Consider both a 1-hidden layer (``Shallow") and a 2-hidden layered (``Deep") Multi Layer perceptrons (MLP). You are going to implement a posterior sampler using Hamiltonian Monte Carlo (HMC) algorithm presented in the class to classify MNIST images. For simplicity purpose, the problem of image classification has been converted into a binary one, instead of multi-class: every image has been labeled either 0 for even digits (0, 2, 4, 6, 8) or 1 for odd digits (1, 3, 5, 7) 
+%Consider a Gaussian Mixture Model (GMM) $X \in \mathbb{R}^2$ with $M$ clusters and parameters $\mW = \{\mu_{i}, \sigma_{i}, w_{i}\}_{i = 1}^{M}$, where $\mu_{i} \in \mathbb{R}^2$.
+%That is, the GMM descibes a set of points in the 2D plane.
+%You are going implement a posterior sampler using the Hamiltion Monte Carlo (HMC) algorithm presented in class.
+
+HMC recap: In general, given a model (say, our MLP) with parameters  $\mW$ and a training dataset $D$.
+A Bayesian sampler of this model obtains $m$ samples $\mW_{t} \sim P(\mW|D)$, where $t \in \{0,\ldots,m-1\}$ is the sample index.
+To achieve this via HMC, we need two measurements, the {\em potential} energy $U(\mW)$
+and the {\em kinetic} energy $K(\mPhi)$, where $\mPhi \sim \mathcal{N}(0, \mR)$ is the
+auxiliary momentum in HMC algorithm randomly sampled from zero-mean Gaussian
+distribution with covariance matrix $\mR$.
+The choice of $\mR$ is left to you.
+
+Given an arbitrary dataset $\mathcal{D}$, we have $$U(\mW) = -\log
+P(\mathcal{D}|\mW) + Z_{U},$$ and $$K(\mPhi) = 0.5 \cdot \mPhi^\mathsf{T}
+\mR^{-1} \mPhi + Z_{K},$$ where $-\log P(\mathcal{D}|\mW)$ is negative
+log-likelihood (mean) of model parameter on dataset $\mathcal{D}$ and $Z_{U},
+Z_{K}$ are arbitrary constants.
+Thus, we can regard the total energy as $$H(\mW, \mPhi) = -\log
+P(\mathcal{D}|\mW) + 0.5 \cdot \mPhi^\mathsf{T} \mR^{-1} \mPhi.$$
+
+The HMC algorithm can be described as \Cref{alg:hmc}:
+\begin{algorithm}
+\caption{Single Step Sampling of Hamilton Mento Carlo}
+\label{alg:hmc}
+\begin{algorithmic}
+\Require Previous sample $\mW_{t}$, Size of Leapfrog Step $\delta$, Number of
+Leapfrog Steps $L$, Covariance $\mR$
+\Ensure New sample $\mW_{t + 1}$
+\State $\mPhi_{0} \sim \mathcal{N}(0, \mR)$
+\State $\mX_{0} = \mW_{t}$
+\For{$l = 0, \cdots, L - 1$}
+    \State $\mPhi_{\big( l + \frac{1}{2} \big) \delta} = \mPhi_{l \delta} -
+    \frac{\delta}{2} \left. \frac{\partial U(\mW)}{\partial \mW}
+    \right|_{\mW = \mX_{l \delta}}$
+    \State $\mX_{(l + 1) \delta} = \mX_{l \delta} + \delta \mR^{-1}
+    \mPhi_{\big( l + \frac{1}{2} \big) \delta}$
+    \State $\mPhi_{(l + 1) \delta} = \mPhi_{\big( l +
+    \frac{1}{2} \big) \delta} - \frac{\delta}{2} \left. \frac{\partial U(\mW)}
+    {\partial \mW} \right|_{\mW = \mX_{(l + 1) \delta}}$
+\EndFor
+\State $\alpha = \min\big(1, \exp(-H(\mX_{L \delta}, \mPhi_{L \delta}) +
+H(\mX_{0}, \mPhi_{0}))\big)$
+\If{$\text{Uniform}(0, 1) \leq \alpha$}
+    \State $\mW_{t + 1} = \mX_{L \delta}$
+\Else
+    \State $\mW_{t + 1} = \mW_{t}$
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+% Space.
+%
+\hfill
+
+% Space.
+%
+\hfill
+
+% Files to work on.
+%
+%\newpage
+\noindent Action Items:
+%
+Let $\mathbf{W}$ are the weights of the Multi Layer Perceprton, and $\mathcal{D} = \{\mathbf{x_i}, \mathbf{y_i}\}_{i=1}^n$ are the training data ($\mathbf{x_i}$ being the MNIST image and $\mathbf{y_i}$ is the image label). 
+After sampling $K$ samples of MLP weights $\mathbf{W^{(1)}}, \mathbf{W^{(2)}}, \ldots, \mathbf{W^{(k)}}$, the Bayesian average model for classification will be,\\
+$p(\mathbf{y}|\mathbf{x}; \{\mathbf{x_i}, \mathbf{y_i}\}_{i=1}^{n}) = \frac{1}{K}\sum_{k=1}^{K}p(\mathbf{y}|\mathbf{x}; \mathbf{W}^{(k)} )$ where $ \mW^{(k)} \sim P(\mW | \mathcal{D})$.
+    
+    We will implement $\mW^{(k)} \sim P(\mW | \mathcal{D})$ by HMC in \texttt{HamiltonianMonteCarlo.py} and \texttt{PerturbedHamiltonianMonteCarlo.py} 
+    according to \Cref{alg:hmc}.
+    Go through all related modules. Specifically, you should understand \texttt{main.py}, \texttt{utils.py}, \texttt{NeuralNetworks.py}.
+    Run the \texttt{main.py} with default arguments: \texttt{python main.py} to run the programs.
+    
+\begin{enumerate}
+%
+
+   
+\item
+    (1.5 pts) Fill in the missing parts of \texttt{get\_sampled\_velocities()}, \texttt{leapfrog()}, \texttt{accept\_or\_reject()} functions in \texttt{HamiltonianMonteCarlo.py}. Go through the comments in the starter code for each function to understand what they are expected to do. 
+    
+    In short, \texttt{get\_sampled\_velocities()} sample the initial values of velocities $\mPhi_{0}$; \texttt{leapfrog()} implements the update of $\mPhi, \mX$ through leapfrog steps; \texttt{accept\_or\_reject()} implements the acceptance or rejection procedeure in the algorithm based on the kinetic and potential energies; and \texttt{sample()} combine all these three functions in a way to generate $K$ samples of MLP weight parameters by generating initial velocities, calling leapfrog function multiple times to generate new velocities, decide whether to accept or reject new sample and then prepare the samples.    
+    
+\item (1 pts) Fill in the missing parts of \texttt{get\_sampled\_velocities()}, \texttt{leapfrog()}, \texttt{accept\_or\_reject()} functions in \texttt{PerturbedHamiltonianMonteCarlo.py} in such a way that it only updates the last layers weights and biases through sampling. In previous implementation all the layers had their weights and biases updated.
+
+\item (Introduction to model calibration) In measuring model performance, we do not only care about accuracy or loss, but also care about if the model is "calibrated", which means we want it to output the ground-truth probability.
+
+Consider our MLP model $f_{\mW}$, parametrized by weight parameters $\mW$. $\mathcal{D} = \{\mathbf{x_i}, \mathbf{y_i}\}_{i=1}^n$ are the training data ($\mathbf{x_i}$ being the MNIST image and $\mathbf{y_i}$ is the image label). For a given input $\vx_i$, the prediction $\hat{y}_i$ can be denoted as,
+\begin{displaymath}
+\hat{y}_i := \argmax_{k \in {0,1}}[f_{\mW}(\vx_i)]_k,
+\end{displaymath}
+and the prediction probability (confidence) $\hat{p}_i$ can be denoted as,
+\begin{displaymath}
+\hat{p}_i := \max_{k \in {0,1}}[f_{\mW}(\vx_i)]_k.
+\end{displaymath}
+The perfect calibrated model is defined as $P(\hat{Y}=Y|\hat{p} = \alpha) = \alpha$. One notion of miscalibration is the difference in expecctation between confidence and accuracy, i..e, $\mathbb{E}_{\hat{p}}(|P(\hat{Y}=Y|\hat{p} = \alpha) - \alpha|)$. To approximate it by finite samples, we divide the probability/confidence interval $[0,1]$ into $M$ equal sized bins $B_1, B_2, \ldots B_M$. For each of the example $\vx_i$ we group them into these bins according to their $\hat{p_i}$ value, i.e., $B_j = \{i: \hat{p}_i\in [\frac{j-1}{M}, \frac{j}{M})\}$. 
+Then, for each bucket $B_j$, we find out 
+%
+\begin{displaymath}
+\rho_j := \frac{1}{\lvert B_j\rvert}\sum_{i \in B_j}{\hat{p}_i},
+\end{displaymath}
+and
+\begin{displaymath} \phi_j := \frac{1}{\lvert B_j\rvert}\sum_{i \in B_j}\mathbf{1}[{\hat{y_i} \text{ is the true label}}].
+\end{displaymath}
+%
+We plot these $(\rho_j, \phi_j)$ in the reliability diagram where $X$-axis is for $\rho$ and $Y$-axis is for $\phi$. $\rho_j, \phi_j$ are respectively called the average confidence and average accuracy for bucket $B_j$. We also define Expected Calibration Error (ECE),
+%
+\begin{displaymath}
+ECE := \frac{1}{n}\sum_{j=1}^{M}{\lvert B_j\rvert}{\lvert \rho_j - \phi_j\rvert}.
+\end{displaymath}
+
+\item (1.5 pts) To perform this task, we need to understand how \texttt{main.py} works. This script will at first learn the Multi Layer perceptron network using traditional MLE based learning. The default configuration for the MLP is shallow (only 1 hidden layer). The accuracy and losses are plotted in the process. Then after being pre-trained for a fixed number of epochs, more networks will be sampled through HMC sampling and the averaged output from the ensemble will be used in prediction. After that, perturbed version of HMC sampling is done where only the last layers' weights and biases are sampled. These sampled networks are averaged again for another set of predictions. 
+
+Go through the code to understand how it works. After all the predictions using the MLE, HMC sampling and perturbed HMC sampling are done, ROC curves and reliability curves for all the models on their training and test data are plotted for analysis. Your tasks are:
+\begin{enumerate}
+    \item (0.5pt) Run the \texttt{main.py} for both shallow and deep networks using the \textbf{- - depth} argument while running the code. If you run \textbf{python main.py --depth shallow}, the whole procedure will be run for shallow network, generating loss, accuracy, ROC and reliability plots. If you run \textbf{python main.py - - depth deep}, the whole procedure will be run for deep network. You need to understand other command line arguments to tune the necessary hyperparameters (learning rate, leapfrog step numbers, leapfrog step size, delta etc.). You can set different values for these hyperparameters using the command line arguments. Also, to reduce the run time, using the \textbf{- - loaded} argument, you can decide whether you will learn a neural network and save it or you will load from a already saved network for the procedures. 
+    
+    In the report, include all the plots that will be generated. Also, mention the training and test accuracies for MLE, sampled and perturb-sampled models. Also, for each of these three models, write their Expected Calibration Error (ECE) and Expected calibration error at 50\% threshold.
+    \item (0.5 pt) Explain the findings you got from the generated ROC curves and AUC scores. Does introducing Bayessian sampling improve the performances? If we only sample the last layers, but with more steps, how does the performance change?
+    
+    \item (0.5 pt) Explain the findings you got from the generated Reliability curves and ECE scores. Does introducing Bayessian sampling improve the performances? If we only sample the last layers, but with more steps, how does the performance change?
+\end{enumerate}
+
+
+     
+%
+
+\end{enumerate}
+
+% Table example.
+%
