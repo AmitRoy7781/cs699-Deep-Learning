@@ -1,0 +1,11 @@
+I am unclear about a few things in this assignment
+question 1.8
+toy example of structural vs positional
+flatness question
+trying to solve the mixed precision question
+
+
+
+Solve 1.8 properly
+give toy example
+finish flatness and mixed precision timing
