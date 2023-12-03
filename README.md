@@ -1,6 +1,6 @@
 # cs699-Deep-Learning
 
-**cs 699 Deep Learning - Spring 2022, Purdue CS** 
+**cs 699 Deep Learning - Spring 2023, Purdue CS** 
 
 Instructor: Bruno Ribeiro
 
